@@ -60,3 +60,8 @@ uname -a
 ![8.png](8.png)
 
 - **Practically** you'll use this to make jenkins clone the repo if the code deployed successfully
+
+## Connect Jenkins to github
+- Create new key pair
+- Go to settings then deploy keys
+- Put public key in field now

@@ -66,3 +66,18 @@ uname -a
 - Go to settings then deploy keys
 - Put public key in field 
 - Tick allow write access
+
+Then move to Jenkins:
+- When setting up github connection in jenkins
+- Tick github project here
+
+![Alt text](11-1.png)
+
+- Then under source code management tick git and paste your repository HTTPS
+
+![Alt text](12-1.png)
+
+- Then add the private key
+
+![Alt text](13-1.png)
+

@@ -64,4 +64,5 @@ uname -a
 ## Connect Jenkins to github
 - Create new key pair
 - Go to settings then deploy keys
-- Put public key in field now
+- Put public key in field 
+- Tick allow write access

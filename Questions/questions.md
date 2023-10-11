@@ -15,7 +15,7 @@ Continuous Integration is the process of continuously and quickly commit small c
 Continuous Delivery is the goal of having a releasable and usable version you can deploy on demand. 
 - The deployment is done manually.
 
-Continuous Deployment is the idea that all changes that go into production is automatically tested, and deployed to customers with no human intervention.
+Continuous DeploymentDelivery is the idea that all changes that go into production is automatically tested, and deployed to customers with no human intervention.
 - Failed tests prevent deployment however.
 
 
@@ -44,3 +44,4 @@ An open source automation server used to handle CI-CD processes.
 - Increases automation
 - Hosted on cloud (improves OPEX over CAPEX)
 - Free versions
+- Easy to use

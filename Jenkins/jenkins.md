@@ -8,7 +8,7 @@ Error logs are returned on failed deploy.
 
 ![jenkins_pipeline.png](jenkins_pipeline.png)
 
-If this was continuous deployment, then the app would be deployed from the master branch.
+If this was continuous deployment, then the app would be deployed from the master node.
 
 ![jenkins_pipeline_deliv.png](jenkins_pipeline_deliv.png)
 

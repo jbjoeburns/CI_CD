@@ -28,8 +28,17 @@ Continuous Deployment is the idea that all changes that go into production is au
 An open source automation server used to handle CI processes.
 
 # Stages of jenkins
+1. Create jenkins job
+2. Build pipeline
+3. Link jobs
 
 # What are the jenkins alternatives
+- Circleci
+- TeamCity
+- Bamboo
+- Gitlab
 
 # Why use jenkins
-
+- Open source 
+- Many packages
+- Increases automation

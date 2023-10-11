@@ -25,7 +25,7 @@ Continuous Deployment is the idea that all changes that go into production is au
 - Easier to isolate bugs as the small changes iterative approach allows you to narrow down in which version change the bug first appeared, and then isolate the change causing the issue
 
 # What is jenkins
-An open source automation server used to handle CI processes.
+An open source automation server used to handle CI-CD processes.
 
 # Stages of jenkins
 1. Create jenkins job
@@ -42,3 +42,5 @@ An open source automation server used to handle CI processes.
 - Open source 
 - Many packages
 - Increases automation
+- Hosted on cloud (improves OPEX over CAPEX)
+- Free versions

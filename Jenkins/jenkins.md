@@ -67,7 +67,10 @@ uname -a
 - Put public key in field 
 - Tick allow write access
 
-Then move to Jenkins:
+This is the key we will be providing to Jenkins so it can clone our repo.
+
+Then move to **Jenkins**
+
 - When setting up github connection in jenkins
 - Tick github project here
 
@@ -77,22 +80,24 @@ Then move to Jenkins:
 
 ![Alt text](12-1.png)
 
-- Then add the private key
+- Then add the private key for the key you linked to your GitHub earlier
 
 ![Alt text](13-1.png)
-
-## Setting up webhook
 
 - Go to config on **Jenkins** and tick github trigger in build triggers
 
 ![14.png](14.png)
 
-- Then go to settings in github repo and go to webhooks in the dropdown
+You also need to restrict where this can be run using the option under office 365 connector 
+- We use the label expression `sparta-ubuntu-node`
+- This ensures this only runs on a specific agent/slave node
 
-- Then paste the payload URL, which is the URL of jenkins 
+Then go to settings in **github repo** and go to webhooks in the dropdown
+
+- Then paste the payload URL, which is the URL of Jenkins 
     - Should be in this format `http://address:port/github-webhook/`
 - Change content type to application/json
 
-You also need to restrict where this can be run using the option under office 365 connector 
+You should have set something like this up. With the exception of deployment.
 
-We use the label expression `sparta-ubuntu-node`
+![Alt text](diagCI-1.png)

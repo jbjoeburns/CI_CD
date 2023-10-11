@@ -29,13 +29,19 @@ When changes occur, this repo will be cloned by jenkins.
 # Building job in jenkins
 
 - Click new item
+
 ![1.png](1.png)
+
 - Name it appropriately 
 - Click freestyle then OK
+
 ![2.png](2.png)
+
 - Give appropriate description
 - Tick 'discard old builds'
+
 ![3.png](3.png)
+
 - Go to build and select 'execute shell'
 - Include the following code
 ``` 
@@ -50,5 +56,7 @@ uname -a
 - Configure new/existing job
 - go to bottom and under post build options click build other project
 - Type the name of the next job you want
+
 ![8.png](8.png)
+
 - **Practically** you'll use this to make jenkins clone the repo if the code deployed successfully

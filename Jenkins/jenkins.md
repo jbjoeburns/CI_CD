@@ -81,3 +81,18 @@ Then move to Jenkins:
 
 ![Alt text](13-1.png)
 
+## Setting up webhook
+
+- Go to config on **Jenkins** and tick github trigger in build triggers
+
+![14.png](14.png)
+
+- Then go to settings in github repo and go to webhooks in the dropdown
+
+- Then paste the payload URL, which is the URL of jenkins 
+    - Should be in this format `http://address:port/github-webhook/`
+- Change content type to application/json
+
+You also need to restrict where this can be run using the option under office 365 connector 
+
+We use the label expression `sparta-ubuntu-node`

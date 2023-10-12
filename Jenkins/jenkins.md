@@ -101,3 +101,33 @@ Then go to settings in **github repo** and go to webhooks in the dropdown
 You should have set something like this up. With the exception of deployment.
 
 ![Alt text](diagCI-1.png)
+
+## Letting Jenkins merge dev to main
+
+Create dev branch.
+
+Change branch in Jenkins config to **dev**.
+
+![Alt text](17.png)
+
+This will make it so this Jenkins job will try to build the contents of the dev branch to test if the app works.
+
+Then, you create a new job with all the same setup as the first, minus the post build actions, and with a different **build trigger**.
+
+We want this to be built once the test job succeeds.
+
+![Alt text](19.png)
+
+However! You also want to add **merge before build** as an additional behaviour, then specify this should merge with **main**.
+
+![Alt text](18.png)
+
+This creates the following pipeline, that has Jenkins test if the app works, then if it does it allows Jenkins to merge dev with main/master.
+
+![Alt text](jenk_test_merge.png)
+
+## Letting Jenkins create AWS instance
+
+Make new job, and tick SSH agent and add AWS key (using doz' for this)
+
+Make ASG that allows Jenkins IP with Jenkins port (8080)

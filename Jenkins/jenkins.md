@@ -77,19 +77,21 @@ This is the key we will be providing to Jenkins so it can clone our repo.
 Then move to **Jenkins**
 
 - When setting up github connection in jenkins
-- Tick github project here
+- Tick github project here and paste HTTPs
 
-![Alt text](11-1.png)
+![Alt text](11.png)
 
-- Then under source code management tick git and paste your repository HTTPS
+- Then under source code management tick git and paste your repository SSH and change branch specifier to dev
 
-![Alt text](12-1.png)
+- This will make it so this Jenkins job will try to build the contents of the dev branch to test if the app works.
+
+![Alt text](17.png)
 
 - Then add the private key for the key you linked to your GitHub earlier
 
 ![Alt text](13-1.png)
 
-- Go to config on **Jenkins** and tick github trigger in build triggers
+- Go to config on **Jenkins** and tick github trigger in build triggers, this will build this job whenever dev is pushed
 
 ![14.png](14.png)
 
@@ -103,29 +105,21 @@ Then go to settings in **github repo** and go to webhooks in the dropdown
     - Should be in this format `http://address:port/github-webhook/`
 - Change content type to application/json
 
-You should have set something like this up. With the exception of deployment.
-
-![Alt text](diagCI-1.png)
-
 ## Letting Jenkins merge dev to main
 
-Create dev branch.
+Create new job, and fill in most of the settings the same way as the previous. With the exception of...
 
-Change branch in Jenkins config to **dev**.
+You also want to add **merge before build** as an additional behaviour, then specify this should merge with **main**.
 
 ![Alt text](17.png)
 
-This will make it so this Jenkins job will try to build the contents of the dev branch to test if the app works.
+![Alt text](18.png)
 
-Then, you create a new job with all the same setup as the first, with a different **build trigger** and **post build actions**.
+Then change the build trigger to be upon successful completion of the previous jobs test.
 
 We want this to be built once the test job succeeds.
 
 ![Alt text](19.png)
-
-However! You also want to add **merge before build** as an additional behaviour, then specify this should merge with **main**.
-
-![Alt text](18.png)
 
 Finally, you need to add post build actions so Jenkins knows what to do with the dev branch. If you select **push only if the build succeeds** and **merge results** this will push a merge request once the build finishes. The reason we do it like this is because the merge before build option will test if the branches are accessable and exist, and then the build will succeed. Once it's succeeded then it will merge.
 

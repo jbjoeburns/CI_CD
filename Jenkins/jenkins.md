@@ -38,15 +38,20 @@ When changes occur, this repo will be cloned by jenkins.
 ![2.png](2.png)
 
 - Give appropriate description
-- Tick 'discard old builds'
+- Tick 'discard old builds' and enter 3, this will discard old logs when logs exceed 3
 
 ![3.png](3.png)
 
 - Go to build and select 'execute shell'
 - Include the following code
 ``` 
-whoami
-uname -a
+#!/bin/bash
+
+cd app/app
+
+npm install
+
+npm test
 ```
 - Click apply and save
 - Can then run this on the list of jobs

@@ -101,3 +101,5 @@ Then go to settings in **github repo** and go to webhooks in the dropdown
 You should have set something like this up. With the exception of deployment.
 
 ![Alt text](diagCI-1.png)
+
+test

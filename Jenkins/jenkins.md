@@ -112,7 +112,7 @@ Change branch in Jenkins config to **dev**.
 
 This will make it so this Jenkins job will try to build the contents of the dev branch to test if the app works.
 
-Then, you create a new job with all the same setup as the first, minus the post build actions, and with a different **build trigger**.
+Then, you create a new job with all the same setup as the first, with a different **build trigger** and **post build actions**.
 
 We want this to be built once the test job succeeds.
 
@@ -121,6 +121,10 @@ We want this to be built once the test job succeeds.
 However! You also want to add **merge before build** as an additional behaviour, then specify this should merge with **main**.
 
 ![Alt text](18.png)
+
+Finally, you need to add post build actions so Jenkins knows what to do with the dev branch. If you select **push only if the build succeeds** and **merge results** this will push a merge request once the build finishes. The reason we do it like this is because the merge before build option will test if the branches are accessable and exist, and then the build will succeed. Once it's succeeded then it will merge.
+
+![Alt text](20.png)
 
 This creates the following pipeline, that has Jenkins test if the app works, then if it does it allows Jenkins to merge dev with main/master.
 

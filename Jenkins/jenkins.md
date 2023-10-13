@@ -221,3 +221,11 @@ sudo systemctl enable nginx
 At this point, you should have set something like this up.
 
 ![Alt text](jenkinsjob3setup.png)
+
+### We can then further automate this process, so that this new job becomes part of our previous pipeline.
+
+1. Return to job 3 config and change the build trigger to the 2nd job (the job that automatically merges dev and main). This will automatically build this job provided the previous job built successfully.
+
+![Alt text](27.png)
+
+2. Push to github dev branch to test, we should expect all 3 jobs to build successfully one after another!

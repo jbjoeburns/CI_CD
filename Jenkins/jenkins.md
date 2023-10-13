@@ -200,6 +200,7 @@ MUST HAVE A DIAGRAM for CI CD in your repo.
 8. Finally, under **execute shell** use the following commands
 
 ```
+#!/bin/bash
 # Allows Jenkins to SSH into the instance.
 # -o allows you to change options for the ssh command, and the option StrictHostKeyChecking is disabled as if enabled it will reject any SSH connections that arent from the known host list, including Jenkins
 ssh -o "StrictHostKeyChecking=no" ubuntu@<Public IPv4 DNS> <<EOF
@@ -214,6 +215,7 @@ sudo apt-get install nginx -y
 # Restarts and enables nginx
 sudo systemctl restart nginx
 sudo systemctl enable nginx
+EOF
 ```
 
 ![Alt text](24.png)
@@ -229,4 +231,31 @@ At this point, you should have set something like this up.
 ![Alt text](27.png)
 
 2. Push to github dev branch to test, we should expect all 3 jobs to build successfully one after another!
+
+![Alt text](28.png)
+
+### We can make a new job that executes the following script to launch the app
+
+```
+#!/bin/bash
+# node js 12.x installed
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt-get install -y nodejs
+echo "nodejs installed"
+
+# node package manager and node process manager installed
+sudo npm install pm2 -g
+npm install
+echo "npm working"
+
+# move to app folder
+cd app/app
+echo "in app folder"
+
+# start app
+pm2 kill
+pm2 start app.js
+```
+
+
 

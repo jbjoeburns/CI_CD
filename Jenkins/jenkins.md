@@ -141,5 +141,3 @@ This creates the following pipeline, that has Jenkins test if the app works, the
 You should have set something like this up.
 
 ![!\[Alt text\](diagCI-1.png)](jenk_test_merge.png)
-
-

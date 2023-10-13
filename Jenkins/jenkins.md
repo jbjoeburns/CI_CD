@@ -1,23 +1,32 @@
 # Jenkins CI-CD pipeline
 
-Aim of CI-CD is to fully automate app deployment from scratch to help deliver software faster, speeding up updates and making more money.
+## Overview of CI-CD
 
-Local code -> github -> automation server (via webhook trigger) -> jenkins -> master node (tests code on agent node) -> pushed to deployment if test successful
+The aim of CI-CD is to fully automate app deployment from scratch to help deliver software faster, speeding up updates and making more money.
+
+The basic overview of the pipeline is...
+
+- Local code -> github -> jenkins -> master node -> tests code on agent node -> pushed to deployment if test successful
 
 Error logs are returned instead of deployment if app doesn't function as expected.
 
+This pipeline consists of two parts...
+
+Continious intergration:
+
 ![jenkins_pipeline.png](jenkins_pipeline.png)
 
-If this was continuous deployment, then the app would be deployed from the master node.
+Continious deployment:
 
 ![jenkins_pipeline_deliv.png](jenkins_pipeline_deliv.png)
 
-This is essentially the same as when you tested deployment with render.
+Continous delivery is the CI-CD pipeline, up until the actual deployment step.
 
-You'll want continuous delivery when you don't want the application to be available to customers right away.
+But **remember**, even though continious deployment has greater automation, continious delivery has some advantages over it.
+- You'll want continuous delivery when you don't want the application to be available to customers right away.
 - Continuous delivery lets you do new deploys instead when client specifications change
 - Also lets you do additional, manual testing among other reasons
-- Then when you're ready you can deploy
+- **You can deploy when you're certain the app is ready!**
 
 # Webhooks
 
@@ -122,13 +131,11 @@ However, make the following changes.
 
 ![8.png](8.png)
 
-This creates the following pipeline, that has Jenkins test if the app works, then if it does it allows Jenkins to merge dev with main/master.
-
-![Alt text](jenk_test_merge.png)
-
 ## Letting Jenkins create AWS instance
 
-1. Make new job, do the exact same setup as the 1st job except its connected to the main branch instead of dev.
+delete this
+```
+1. Make new job, do the exact same setup as the 1st job with the following changes
 
 2. Set AWS code deploy plugin as post build
 
@@ -138,6 +145,79 @@ This creates the following pipeline, that has Jenkins test if the app works, the
 
 5. Make ASG that allows Jenkins IP with Jenkins port (8080)
 
-You should have set something like this up.
 
-![!\[Alt text\](diagCI-1.png)](jenk_test_merge.png)
+
+Launch EC2 Instance
+
+Add relevant security group to Ec2 instance
+
+Create a third job in jenkins to SSH into environment
+
+Copy code into environment
+
+Install nginx
+
+Share public IP and github document with screenshots of third job and execute shells commands
+
+MUST HAVE A DIAGRAM for CI CD in your repo.
+
+```
+
+## Setting up job that automatically deploys app
+
+### Creating the AWS instance
+
+1. First, we need to create a new AWS instance for Jenkins to use. For this we will create an instance with the following AMI using t2 micro and our usual key-pair login: `ami-0136ddddd07f0584f`.
+
+![Alt text](25.png)
+
+2. Then we need to set up the security groups for this instance. We want the following ports open...
+- 8080: This is the port for Jenkins and is required for it to be able to connect.
+- 22: The SSH port, needed to connect via SSH.
+- 80: The port for HTML, this will be needed to connect to the instance via a browser to test if everything is working.
+
+![Alt text](26.png)
+
+3. We can then deploy this app
+
+### Creating Jenkins job to test we can connect and run nginx
+
+4. Then once the instance is created, we can move onto making a new freestyle Jenkins job
+
+5. We want to make sure we change **max builds** in **log rotation** to 5.
+- The reason we do this is because our CI-CD pipeline will consist of more than 5 jobs. This will prevent our builds from being deleted once we get towards the end of the pipeline. **Change this for all jobs in the pipeline too.**
+
+![Alt text](21.png)
+
+6. Keep **restrict where this can be run** to `sparta-ubuntu-node`
+
+![Alt text](22.png)
+
+7. Under **build environment** select **SSH agent** and use our ssh pem file.
+
+![Alt text](23.png)
+
+8. Finally, under **execute shell** use the following commands
+
+```
+# Allows Jenkins to SSH into the instance.
+# -o allows you to change options for the ssh command, and the option StrictHostKeyChecking is disabled as if enabled it will reject any SSH connections that arent from the known host list, including Jenkins
+ssh -o "StrictHostKeyChecking=no" ubuntu@<Public IPv4 DNS> <<EOF
+
+# Updates and upgrades installed packages
+sudo apt-get update -y
+sudo apt-get upgrade -y
+
+# Installs nginx
+sudo apt-get install nginx -y
+
+# Restarts and enables nginx
+sudo systemctl restart nginx
+sudo systemctl enable nginx
+```
+
+![Alt text](24.png)
+
+At this point, you should have set something like this up.
+
+![Alt text](jenkinsjob3setup.png)

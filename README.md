@@ -1,3 +1,4 @@
-# This is an old repo, updated CI-CD notes are here: https://github.com/jbjoeburns/CI-CD
+# This is a repo intended for testing Jenkins by housing a NodeJS test app.
 
-I kept this for testing jenkins!!
+Jenkins notes are here: https://github.com/jbjoeburns/CI-CD
+
